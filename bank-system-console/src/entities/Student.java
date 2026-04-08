@@ -15,7 +15,6 @@ public class Student {
         this.lastName = lastName;
         this.courses = new String[5]; // sets max number of courses students can take
         this.courseCount = 0; // initializes course count
-        this.gpa = 0; // initializes grade rounded to the nearest whole number
     }
 
     public void addCourse(String courseName, double score) {
