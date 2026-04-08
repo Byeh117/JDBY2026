@@ -4,22 +4,39 @@ import java.math.BigDecimal;
 
 public class Student {
 
-    // Basic identity
+    // variable types (specifically those with []) assisted by claude.ai
     private String firstName;
     private String lastName;
-    private BigDecimal studentId;
+    private String[] courses; // keeps list of courses being taken
+    private int courseCount; // keeps track of number of courses being added
 
-    // Grades
-    private double[] grades;       // individual assessment grades
-    private String[] letterGrades; // letter grades
-    private BigDecimal totalCredits;      // total credit hours completed
+    public Student(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.courses = new String[5]; // sets max number of courses students can take
+        this.courseCount = 0; // initializes course count
+        this.gpa = 0; // initializes grade rounded to the nearest whole number
+    }
 
-    // GPA
-    private double gpa;            // calculated from grades
-    private double[] courseGrades; // grade points per course (e.g. 4.0, 3.0)
-    private String[] courseNames;  // name of course according to grade
+    public void addCourse(String courseName, double score) {
+        if (courseCount >= 5) {
+            throw new RuntimeException("Cannot add more than 5 courses");
+        }
+        courses[courseCount] = courseName; // stores course name in array
+        courseCount++;
+    }
 
-    private boolean isEnrolled;
+    // assisted by Claude.ai
+    public void classList() {
+        System.out.println("=== Student Class List ===");
+        System.out.println("Name: " + firstName + " " + lastName);
+        System.out.println("Courses:");
+        for (int i = 0; i < courseCount; i++) {
+            System.out.println(" " + courses[i]);
+        }
+    }
 
-    public void
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String[] getCourses() { return courses; }
 }
