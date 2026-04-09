@@ -3,8 +3,9 @@ package classAssignments;
 public abstract class Temperature {
     protected double temperature; // from claude.ai, allows child classes to use variable
 
+    public Temperature() {}
     //Constructor created using claude.ai
-    public Temperature(double temperature, String unit) {
+    public Temperature(double temperature) {
         this.temperature = temperature;
     }
 

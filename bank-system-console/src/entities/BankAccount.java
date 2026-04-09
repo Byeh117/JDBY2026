@@ -30,8 +30,6 @@ public abstract class BankAccount {
 
     public abstract void applyMonthlyFee();
 
-
-
     public void deposit(BigDecimal amount) {
         if(amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new RuntimeException("Amount passed is less then zero");
