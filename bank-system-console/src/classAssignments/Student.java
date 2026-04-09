@@ -1,6 +1,4 @@
-package entities;
-
-import java.math.BigDecimal;
+package classAssignments;
 
 public class Student {
 

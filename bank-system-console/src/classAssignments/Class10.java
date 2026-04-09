@@ -1,4 +1,4 @@
-package entities;
+package classAssignments;
 
 public class Class10 {
 }

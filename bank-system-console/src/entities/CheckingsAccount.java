@@ -3,10 +3,10 @@ package entities;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class CheckingAccount extends BankAccount {
+public class CheckingsAccount extends BankAccount {
     private BigDecimal monthlyFee;
 
-    public CheckingAccount(String accountNumber, BigDecimal balance, BigDecimal monthlyFee) {
+    public CheckingsAccount(String accountNumber, BigDecimal balance, BigDecimal monthlyFee) {
         super(accountNumber, balance);
         this.monthlyFee = monthlyFee;
     }
@@ -25,8 +25,8 @@ public class CheckingAccount extends BankAccount {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof CheckingAccount)) return false;
-        CheckingAccount that = (CheckingAccount) o;
+        if (!(o instanceof CheckingsAccount)) return false;
+        CheckingsAccount that = (CheckingsAccount) o;
         return Objects.equals(getMonthlyFee(), that.getMonthlyFee());
     }
 

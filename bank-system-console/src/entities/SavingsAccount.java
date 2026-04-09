@@ -27,6 +27,19 @@ public class SavingsAccount extends BankAccount {
     }
 
     @Override
+    public void applyMonthlyFee() {
+        applyInterest();
+    }
+    
+    @Override
+    public void transfer(BigDecimal amount, String toAccountNumber){
+        withdraw(amount);
+    }
+
+    private void withdraw(BigDecimal amount) {
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof SavingsAccount)) return false;
         SavingsAccount that = (SavingsAccount) o;

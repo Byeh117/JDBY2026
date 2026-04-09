@@ -1,6 +1,4 @@
-package entities;
-
-import java.awt.event.ItemEvent;
+package classAssignments;
 
 public class HeroInventory {
     private static final int MAX_QUANTITY = 10; // sets the max number of inventory slots available
