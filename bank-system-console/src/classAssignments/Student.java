@@ -15,7 +15,7 @@ public class Student {
         this.courseCount = 0; // initializes course count
     }
 
-    public void addCourse(String courseName, double score) {
+    public void AddCourse(String courseName) {
         if (courseCount >= 5) {
             throw new RuntimeException("Cannot add more than 5 courses");
         }
@@ -24,7 +24,7 @@ public class Student {
     }
 
     // assisted by Claude.ai
-    public void classList() {
+    public void ClassList() {
         System.out.println("=== Student Class List ===");
         System.out.println("Name: " + firstName + " " + lastName);
         System.out.println("Courses:");
