@@ -1,6 +1,6 @@
 package classAssignments;
 
-public abstract class Temperature {
+public abstract class Temperature implements TransferableTemp{
     protected double temperature; // from claude.ai, allows child classes to use variable
 
     public Temperature() {}
@@ -12,6 +12,18 @@ public abstract class Temperature {
     public abstract double toFahrenheit();
     public abstract double toCelsius();
     public abstract double toKelvin();
+
+    @Override
+    public String transferData() {
+        return "F: " + toFahrenheit() + " | C: " + toCelsius() + " | K: " + toKelvin();
+    }
+    @Override
+    public void receiveData(String data) {
+        if (data == null || data.isEmpty()) {
+            throw new RuntimeException("No data to receive");
+        }
+        System.out.println("Received Data: " + data);
+    }
 
     public void printAllConversions() { // Prints all temperature variants
         System.out.println("== Temperature Conversions ==");
