@@ -4,10 +4,8 @@ import java.math.BigDecimal;
 
 public interface Transferable {
     void transfer(BigDecimal amount, String toAccountNumber);
-
+    BigDecimal getBalance();
     default boolean canTransfer(BigDecimal amount) {
-        return false;
+        return getBalance().compareTo(amount) <= 0;
     }
-
-    Comparable<BigDecimal> getBalance();
 }
