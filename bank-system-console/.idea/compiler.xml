@@ -9,5 +9,8 @@
         <module name="pizza-shop" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="records-shop" target="25" />
+    </bytecodeTargetLevel>
   </component>
 </project>

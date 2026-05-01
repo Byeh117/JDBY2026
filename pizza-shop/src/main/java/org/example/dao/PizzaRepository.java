@@ -1,6 +1,6 @@
-package org.example.repositories;
+package org.example.dao;
 
-import org.example.entities.Pizza;
+import org.example.model.Pizza;
 
 import java.util.List;
 

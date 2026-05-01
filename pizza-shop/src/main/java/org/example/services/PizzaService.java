@@ -1,6 +1,6 @@
 package org.example.services;
 
-import org.example.repositories.PizzaRepository;
+import org.example.dao.PizzaRepository;
 
 public class PizzaService {
     private final PizzaRepository pizzaRepository;

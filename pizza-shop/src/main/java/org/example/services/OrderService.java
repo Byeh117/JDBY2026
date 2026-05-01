@@ -1,7 +1,7 @@
 package org.example.services;
 
-import org.example.entities.Order;
-import org.example.repositories.OrderRepository;
+import org.example.model.Order;
+import org.example.dao.OrderRepository;
 
 public class OrderService {
     private final OrderRepository orderRepository;

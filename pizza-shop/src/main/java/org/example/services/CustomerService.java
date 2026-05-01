@@ -1,7 +1,7 @@
 package org.example.services;
 
-import org.example.entities.Customers;
-import org.example.repositories.CustomerRepository;
+import org.example.model.Customers;
+import org.example.dao.CustomerRepository;
 
 public class CustomerService {
     private final CustomerRepository customerRepository;

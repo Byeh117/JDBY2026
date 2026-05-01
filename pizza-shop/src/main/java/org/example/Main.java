@@ -1,25 +1,38 @@
 package org.example;
 
-import org.example.repositories.CustomerRepository;
-import org.example.repositories.OrderRepository;
-import org.example.repositories.PizzaRepository;
-import org.example.repositories.PseudoDatabase;
-import org.example.services.CustomerService;
-import org.example.services.OrderService;
-import org.example.services.PizzaService;
+import org.example.config.DatabaseConfig;
+import org.example.model.Pizza;
+import org.example.dao.*;
+
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
     static void main() {
-        final PseudoDatabase database = new PseudoDatabase();
-        final PizzaRepository pizzaRepository = new PizzaRepository(database);
-        final OrderRepository orderRepository = new OrderRepository(database);
-        final CustomerRepository customerRepository = new CustomerRepository(database);
-        final PizzaService pizzaService = new PizzaService(pizzaRepository);
-        final OrderService orderService = new OrderService(orderRepository);
-        final CustomerService customerService = new CustomerService(customerRepository);
 
-        pizzaService.displayPizza();
-        orderService.displayOrders();
-        customerService.displayCustomers();
+
+        Connection connection = null;
+        try {
+            connection = DatabaseConfig.getInstance().getConn();
+            System.out.println("DATABASE CONNECTION MADE!!!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        JdbcPizzaRepository repository = new JdbcPizzaRepository(connection);
+        repository.save(new Pizza("Cheese Pizza", new BigDecimal("9.99"), 'L'));
     }
 }
+
+//        final PseudoDatabase database = new PseudoDatabase();
+//        final PizzaRepository pizzaRepository = new PizzaRepository(database);
+//        final OrderRepository orderRepository = new OrderRepository(database);
+//        final CustomerRepository customerRepository = new CustomerRepository(database);
+//        final PizzaService pizzaService = new PizzaService(pizzaRepository);
+//        final OrderService orderService = new OrderService(orderRepository);
+//        final CustomerService customerService = new CustomerService(customerRepository);
+//
+//        pizzaService.displayPizza();
+//        orderService.displayOrders();
+//        customerService.displayCustomers();

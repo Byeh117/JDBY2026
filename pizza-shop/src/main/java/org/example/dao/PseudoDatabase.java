@@ -1,8 +1,8 @@
-package org.example.repositories;
+package org.example.dao;
 
-import org.example.entities.Customers;
-import org.example.entities.Order;
-import org.example.entities.Pizza;
+import org.example.model.Customers;
+import org.example.model.Order;
+import org.example.model.Pizza;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

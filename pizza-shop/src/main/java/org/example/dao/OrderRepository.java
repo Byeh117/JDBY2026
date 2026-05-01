@@ -1,6 +1,6 @@
-package org.example.repositories;
+package org.example.dao;
 
-import org.example.entities.Order;
+import org.example.model.Order;
 
 import java.util.List;
 

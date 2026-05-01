@@ -1,6 +1,6 @@
-package org.example.repositories;
+package org.example.dao;
 
-import org.example.entities.Customers;
+import org.example.model.Customers;
 
 import java.util.List;
 
