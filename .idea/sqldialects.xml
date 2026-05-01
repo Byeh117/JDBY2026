@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/records-shop/src/main/java/org/example/dao/impl/AlbumDAOImpl.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/records-shop/src/main/java/org/example/dao/impl/ArtistDAOImpl.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/records-shop/src/main/java/org/example/dao/impl/RentDAOImpl.java" dialect="GenericSQL" />
+  </component>
+</project>

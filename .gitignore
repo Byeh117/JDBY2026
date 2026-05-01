@@ -1,0 +1,4 @@
+/records-shop/
+db.url=jdbc:mysql://localhost:3306/records_db
+db.user=root
+db.password=MySQLpw1!
