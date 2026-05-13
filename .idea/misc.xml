@@ -5,10 +5,18 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/records-shop/pom.xml" />
+        <option value="$PROJECT_DIR$/jd-bank-app/pom.xml" />
+        <option value="$PROJECT_DIR$/jb-bank-app/pom.xml" />
+        <option value="$PROJECT_DIR$/todo-app/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/jd-bank-app/pom.xml" />
+      </set>
+    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_26" project-jdk-name="corretto-25" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_26" project-jdk-name="temurin-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

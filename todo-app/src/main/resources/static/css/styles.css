@@ -1,0 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap');
+
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --blue:        #1a73e8;
+    --blue-light:  #e8f0fe;
+    --blue-dark:   #1557b0;
+    --surface:     #ffffff;
+    --bg:          #f0f4f9;
+    --border:      #dadce0;
+    --text:        #202124;
+    --text-sub:    #5f6368;
+    --text-hint:   #80868b;
+    --danger:      #d93025;
+    --danger-light:#fce8e6;
+    --success:     #1e8e3e;
+    --success-light:#e6f4ea;
+    --radius:      8px;
+    --radius-lg:   12px;
+    --shadow:      0 1px 3px rgba(60,64,67,.15), 0 2px 6px rgba(60,64,67,.10);
+    --shadow-hover:0 2px 8px rgba(60,64,67,.20), 0 4px 12px rgba(60,64,67,.15);
+    --transition:  .18s cubic-bezier(.4,0,.2,1);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header / Nav ─────────────────────────────────────────── */
+header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(60,64,67,.12);
+}
+
+header .logo {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -.3px;
+}
+
+header .logo span { color: var(--blue); }
+
+header nav { margin-left: auto; display: flex; gap: 8px; }
+
+/* ── Footer ───────────────────────────────────────────────── */
+footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text-hint);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+}
+
+/* ── Main Container ───────────────────────────────────────── */
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+}
+
+/* ── Flash Messages ───────────────────────────────────────── */
+.flash {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flash.success {
+    background: var(--success-light);
+    color: var(--success);
+    border: 1px solid #a8d5b5;
+}
+
+.flash.success::before { content: '✓'; font-weight: 700; }
+
+/* ── Page Title ───────────────────────────────────────────── */
+.page-title {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 24px;
+    letter-spacing: -.2px;
+}
+
+/* ── Filter Tabs ──────────────────────────────────────────── */
+.filters {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 6px;
+    width: fit-content;
+    box-shadow: var(--shadow);
+}
+
+.filters a {
+    padding: 7px 20px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-sub);
+    transition: background var(--transition), color var(--transition);
+    text-decoration: none;
+}
+
+.filters a:hover { background: var(--bg); color: var(--text); }
+
+.filters a.active {
+    background: var(--blue-light);
+    color: var(--blue);
+}
+
+/* ── Add Button ───────────────────────────────────────────── */
+.btn-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-family: 'Google Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background var(--transition), box-shadow var(--transition);
+    box-shadow: 0 1px 3px rgba(26,115,232,.4);
+    margin-bottom: 20px;
+}
+
+.btn-add:hover {
+    background: var(--blue-dark);
+    box-shadow: 0 2px 8px rgba(26,115,232,.5);
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn-add::before { content: '+'; font-size: 20px; line-height: 1; }
+
+/* ── Empty State ──────────────────────────────────────────── */
+.empty {
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--text-sub);
+}
+
+.empty p { font-size: 15px; }
+.empty::before {
+    content: '📋';
+    display: block;
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+/* ── Todo List ────────────────────────────────────────────── */
+.todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.todo-list li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    box-shadow: var(--shadow);
+    transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.todo-list li:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: #c0c8d0;
+    transform: translateY(-1px);
+}
+
+.todo-list li.done {
+    background: #fafafa;
+    border-color: #e8eaed;
+}
+
+.todo-list li.done .title {
+    text-decoration: line-through;
+    color: var(--text-hint);
+}
+
+/* ── Check Button ─────────────────────────────────────────── */
+.check {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    color: var(--text-sub);
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: color var(--transition), transform var(--transition);
+}
+
+.check:hover { color: var(--blue); transform: scale(1.1); }
+.done .check { color: var(--blue); }
+
+/* ── Todo Body ────────────────────────────────────────────── */
+.todo-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.todo-body .title {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 3px;
+}
+
+.todo-body .desc {
+    font-size: 13px;
+    color: var(--text-sub);
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+.todo-body .meta {
+    font-size: 11px;
+    color: var(--text-hint);
+    letter-spacing: .2px;
+}
+
+/* ── Actions ──────────────────────────────────────────────── */
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.todo-list li:hover .actions { opacity: 1; }
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 14px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition);
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn-ghost {
+    color: var(--blue);
+    background: transparent;
+    border-color: var(--border);
+}
+
+.btn-ghost:hover {
+    background: var(--blue-light);
+    border-color: var(--blue);
+    text-decoration: none;
+}
+
+.btn-danger {
+    color: var(--danger);
+    background: transparent;
+    border-color: var(--border);
+}
+
+.btn-danger:hover {
+    background: var(--danger-light);
+    border-color: var(--danger);
+}
+
+/* ── Inline forms ─────────────────────────────────────────── */
+form.inline { display: inline; }
+
+/* ── Form Page ────────────────────────────────────────────── */
+.form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.form-card-header {
+    background: var(--blue);
+    padding: 28px 32px 20px;
+}
+
+.form-card-header h1 {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: -.2px;
+}
+
+.form-card-header p {
+    color: rgba(255,255,255,.8);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.form-card-body { padding: 28px 32px 32px; }
+
+.form-group { margin-bottom: 22px; }
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-sub);
+    margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text);
+    background: var(--surface);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(26,115,232,.12);
+}
+
+.form-group textarea { resize: vertical; min-height: 90px; }
+
+.form-group input.error,
+.form-group textarea.error { border-color: var(--danger); }
+
+.form-error {
+    color: var(--danger);
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.form-check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--blue);
+    cursor: pointer;
+}
+
+.form-check span {
+    font-size: 14px;
+    color: var(--text);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.btn-primary {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+    padding: 10px 24px;
+    font-size: 14px;
+    border-radius: 24px;
+    font-family: 'Google Sans', sans-serif;
+}
+
+.btn-primary:hover {
+    background: var(--blue-dark);
+    border-color: var(--blue-dark);
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-cancel {
+    color: var(--text-sub);
+    background: transparent;
+    border-color: var(--border);
+    padding: 10px 24px;
+    border-radius: 24px;
+}
+
+.btn-cancel:hover {
+    background: var(--bg);
+    text-decoration: none;
+    color: var(--text);
+}
+
+/* ── Error Page ───────────────────────────────────────────── */
+.error-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 48px 32px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    max-width: 480px;
+    margin: 60px auto;
+}
+
+.error-card h1 {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--danger);
+    margin-bottom: 12px;
+}
+
+.error-card p { color: var(--text-sub); margin-bottom: 24px; }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .container { padding: 20px 12px 48px; }
+    .form-card-header, .form-card-body { padding: 20px; }
+    .filters { width: 100%; justify-content: space-between; }
+    .filters a { flex: 1; text-align: center; }
+    .actions { opacity: 1; }
+}
