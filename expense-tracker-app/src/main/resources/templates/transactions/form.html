@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${mode == 'create' ? 'New Transaction' : 'Edit Transaction'})}"></head>
+<body>
+
+<header th:replace="~{fragments/layout :: header('transactions')}"></header>
+
+<!--
+    Controller:   GET  /transactions/new       → mode="create", transactionForm=new TransactionForm()
+                  GET  /transactions/{id}/edit → mode="edit",   transactionForm=populated TransactionForm
+                  POST /transactions           → create
+                  POST /transactions/{id}      → update
+
+    Model object: "transactionForm" — TransactionForm DTO
+    TransactionForm fields:
+      id          (Long)
+      amount      (BigDecimal)
+      occurredOn  (LocalDate)   ← this is the date field name, NOT "date"
+      note        (String)
+      accountId   (Long)        ← flat ID, not nested object
+      categoryId  (Long)        ← flat ID, not nested object
+
+    Also in model:
+      "accounts"          — List<Account>
+      "expenseCategories" — List<Category> where type=EXPENSE
+      "incomeCategories"  — List<Category> where type=INCOME
+      "mode"              — "create" | "edit"
+-->
+
+<main>
+    <div class="container">
+
+        <div class="page-header">
+            <h1 th:text="${mode == 'create' ? 'New Transaction' : 'Edit Transaction'}">Transaction</h1>
+            <a class="btn btn-ghost" th:href="@{/transactions}">← Back</a>
+        </div>
+
+        <div class="card">
+            <form th:action="${mode == 'create' ? '/transactions' : '/transactions/' + transactionForm.id}"
+                  th:object="${transactionForm}"
+                  method="post">
+
+                <div class="form-grid">
+
+                    <!-- Amount -->
+                    <div class="form-group">
+                        <label for="amount">Amount ($)</label>
+                        <input id="amount"
+                               type="number"
+                               th:field="*{amount}"
+                               step="0.01"
+                               min="0.01"
+                               placeholder="0.00"
+                               required>
+                        <span style="font-size:.75rem;color:#e02424"
+                              th:if="${#fields.hasErrors('amount')}"
+                              th:errors="*{amount}">Error</span>
+                    </div>
+
+                    <!-- Date — field is "occurredOn" in TransactionForm, not "date" -->
+                    <div class="form-group">
+                        <label for="occurredOn">Date</label>
+                        <input id="occurredOn"
+                               type="date"
+                               th:field="*{occurredOn}"
+                               required>
+                        <span style="font-size:.75rem;color:#e02424"
+                              th:if="${#fields.hasErrors('occurredOn')}"
+                              th:errors="*{occurredOn}">Error</span>
+                    </div>
+
+                    <!-- Account — binds to flat accountId Long in TransactionForm -->
+                    <div class="form-group">
+                        <label for="accountId">Account</label>
+                        <select id="accountId" th:field="*{accountId}" required>
+                            <option value="">— select account —</option>
+                            <option th:each="acc : ${accounts}"
+                                    th:value="${acc.id}"
+                                    th:text="${acc.name}">Account</option>
+                        </select>
+                        <span style="font-size:.75rem;color:#e02424"
+                              th:if="${#fields.hasErrors('accountId')}"
+                              th:errors="*{accountId}">Error</span>
+                    </div>
+
+                    <!-- Category — binds to flat categoryId Long in TransactionForm -->
+                    <div class="form-group">
+                        <label for="categoryId">Category</label>
+                        <select id="categoryId" th:field="*{categoryId}" required>
+                            <option value="">— select category —</option>
+                            <optgroup label="Expenses">
+                                <option th:each="cat : ${expenseCategories}"
+                                        th:value="${cat.id}"
+                                        th:text="${cat.name}">Category</option>
+                            </optgroup>
+                            <optgroup label="Income">
+                                <option th:each="cat : ${incomeCategories}"
+                                        th:value="${cat.id}"
+                                        th:text="${cat.name}">Category</option>
+                            </optgroup>
+                        </select>
+                        <span style="font-size:.75rem;color:#e02424"
+                              th:if="${#fields.hasErrors('categoryId')}"
+                              th:errors="*{categoryId}">Error</span>
+                    </div>
+
+                    <!-- Note -->
+                    <div class="form-group">
+                        <label for="note">Note <span class="muted">(optional)</span></label>
+                        <input id="note"
+                               type="text"
+                               th:field="*{note}"
+                               placeholder="e.g. Grocery run, Monthly rent…"
+                               maxlength="255">
+                        <span style="font-size:.75rem;color:#e02424"
+                              th:if="${#fields.hasErrors('note')}"
+                              th:errors="*{note}">Error</span>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"
+                                th:text="${mode == 'create' ? 'Create transaction' : 'Save changes'}">Save</button>
+                        <a class="btn btn-ghost" th:href="@{/transactions}">Cancel</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

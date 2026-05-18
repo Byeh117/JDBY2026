@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/layout :: head('Dashboard')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header th:replace="~{fragments/layout :: header ('dashboard')}"></header>
+
+<main>
+    <div class="container">
+        <div class="page-header">
+            <h1>Dashboard</h1>
+            <span class="muted" style="font-size:.875rem"
+                  th:text="${#temporals.format(dashboard.start, 'MMMM yyyy')}">May 2026</span>
+        </div>
+        <div class="grid-3" style="margin-bottom:1.5rem">
+            <div class="stat-card">
+                <div class="stat-label">Total spent this month</div>
+                <div class="stat-value expense"
+                     th:text="'$' +
+                     ${#numbers.formatDecimal(dashboard.totalExpenses, 1, 'COMMA', 2, 'POINT')}">$0.00
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Top category</div>
+                <div class="stat-value"
+                     style="font-size:1.4rem"
+                     th:text="${not #lists.isEmpty(dashboard.topCategories)}
+                      ? ${dashboard.topCategories[0].categoryName} : '-'">-
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Recent transactions</div>
+                <div class="stat-value"
+                     th:text="${#lists.size(dashboard.recentTransactions)}">
+                    0
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${mode == 'create' ? 'New Category' : 'Edit Category'})}"></head>
+<body>
+
+<header th:replace="~{fragments/layout :: header('categories')}"></header>
+
+<main>
+    <div class="container">
+        <div class="page-header">
+            <h1 th:text="${mode == 'create' ? 'New Category' : 'Edit Category'}">Category</h1>
+            <a class="btn tbn-ghost" th:href="@{/categories}">← Back</a>
+        </div>
+
+        <div class="card">
+            <form th:action="${mode == 'create' ? '/categories' : '/categories/' + categoryForm.id}"
+                  th:object="${categoryForm}"
+                  method="post">
+
+                <div class="form-grid">
+
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label for="name">Category name</label>
+                        <input id="name"
+                               type="text"
+                               th:field="*{name}"
+                               placeholder="e.g. Groceries, Salary, Rent"
+                               required>
+                        <span style="font-size:.75rem;color:#e02424"
+                              th:if="${#fields.hasErrors('name')}"
+                              th:errors="*{name}">Error</span>
+                    </div>
+
+                    <!-- Type — CategoryType enum: INCOME, EXPENSE -->
+                    <div class="form-group">
+                        <label for="type">Category type</label>
+                        <select id="type" th:field="*{type}" required>
+                            <option value="">— select type —</option>
+                            <option value="EXPENSE">Expense</option>
+                            <option value="INCOME">Income</option>
+                        </select>
+                        <span style="font-size:.75rem;color:#e02424"
+                              th:if="${#fields.hasErrors('type')}"
+                              th:errors="*{type}">Error</span>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"
+                                th:text="${mode == 'create' ? 'Create category' : 'Save changes'}">Save</button>
+                        <a class="btn btn-ghost" th:href="@{/categories}">Cancel</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

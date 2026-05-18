@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Transactions')}"></head>
+<body>
+
+<header th:replace="~{fragments/layout :: header('transactions')}"></header>
+
+<!--
+    Controller:   GET /transactions
+    Params:       start (LocalDate, optional — defaults to first of current month)
+                  end   (LocalDate, optional — defaults to last of current month)
+                  categoryId (Long, optional)
+    Model:        "transactions"  — List<Transaction>  (account + category EAGER on entity)
+                  "start"         — LocalDate  (echoed back for filter repopulation)
+                  "end"           — LocalDate
+                  "categoryId"    — Long (may be null)
+                  "categories"    — NOT currently in controller; add it for the filter select
+                                    (see note below — controller needs updating)
+
+    Transaction.account  → EAGER (safe to access .account.name in template)
+    Transaction.category → EAGER (safe to access .category.name, .category.type)
+    Transaction date field is "occurredOn" (LocalDate), not "date"
+
+    ⚠ TransactionController currently only has GET /transactions.
+      POST /transactions/new, /{id}/edit, /{id}/delete stubs are included below
+      but will 404 until added to the controller.
+-->
+
+<main>
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Transactions</h1>
+            <a class="btn btn-primary" th:href="@{/transactions/new}">+ New Transaction</a>
+        </div>
+
+        <!-- Flash messages -->
+        <div th:if="${success}"
+             style="background:#ecfdf5;border:1px solid #6ee7b7;color:#065f46;padding:.75rem 1rem;border-radius:8px;margin-bottom:1.25rem"
+             th:text="${success}">Success</div>
+
+        <!-- ── Filter bar ──────────────────────────────────────────── -->
+        <!-- Submits as GET so the URL is bookmarkable.
+             Params match @RequestParam names in TransactionController. -->
+        <form th:action="@{/transactions}" method="get">
+            <div class="filter-bar">
+
+                <div class="form-group">
+                    <label for="start">From</label>
+                    <input id="start"
+                           name="start"
+                           type="date"
+                           th:value="${start}">
+                </div>
+
+                <div class="form-group">
+                    <label for="end">To</label>
+                    <input id="end"
+                           name="end"
+                           type="date"
+                           th:value="${end}">
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryId">Category</label>
+                    <select id="categoryId" name="categoryId">
+                        <option value="">All categories</option>
+                        <!-- "categories" must be added to model by controller -->
+                        <option th:each="cat : ${categories}"
+                                th:value="${cat.id}"
+                                th:selected="${cat.id == categoryId}"
+                                th:text="${cat.name}">Category</option>
+                    </select>
+                </div>
+
+                <div style="display:flex;gap:.5rem;align-items:flex-end">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a class="btn btn-ghost" th:href="@{/transactions}">Reset</a>
+                </div>
+
+            </div>
+        </form>
+
+        <!-- ── Results count ──────────────────────────────────────── -->
+        <div style="margin-bottom:.75rem;font-size:.875rem" class="muted"
+             th:text="${#lists.size(transactions)} + ' transaction(s)'">0 transactions</div>
+
+        <!-- ── Transactions table ─────────────────────────────────── -->
+        <div class="card" style="padding:0">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Note</th>
+                        <th>Account</th>
+                        <th>Category</th>
+                        <th class="text-right">Amount</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="tx : ${transactions}">
+                        <!-- occurredOn is the field name in Transaction entity -->
+                        <td class="mono muted"
+                            th:text="${#temporals.format(tx.occurredOn, 'dd MMM yyyy')}">01 Jan 2026</td>
+                        <td th:text="${tx.note}">Coffee</td>
+                        <!-- account + category are EAGER — no lazy trap here -->
+                        <td th:text="${tx.account.name}">Checking</td>
+                        <td>
+                            <a th:href="@{/transactions(start=${start}, end=${end}, categoryId=${tx.category.id})}"
+                               th:text="${tx.category.name}"
+                               style="color:inherit;text-decoration:none;border-bottom:1px dashed var(--border)">
+                                Food
+                            </a>
+                        </td>
+                        <td class="text-right"
+                            th:classappend="${tx.category.type.name() == 'EXPENSE'} ? 'amount-expense' : 'amount-income'"
+                            th:text="'$' + ${#numbers.formatDecimal(tx.amount, 1, 'COMMA', 2, 'POINT')}">
+                            $0.00
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <a class="btn btn-ghost btn-sm"
+                                   th:href="@{/transactions/{id}/edit(id=${tx.id})}">Edit</a>
+                                <form th:action="@{/transactions/{id}/delete(id=${tx.id})}"
+                                      method="post"
+                                      onsubmit="return confirm('Delete this transaction?')">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(transactions)}">
+                        <td colspan="6" class="muted" style="padding:2rem;text-align:center">
+                            No transactions found for this period.
+                            <a th:href="@{/transactions/new}">Add one →</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Accounts')}"></head>
+<body>
+
+<header th:replace="~{fragments/layout :: header('accounts')}"></header>
+
+<main>
+    <div class="container">
+        <div class="page-header">
+            <h1>Accounts</h1>
+            <a class="btn btn-primary" th:href="@{/accounts/new}">+ New Account</a>
+        </div>
+
+        <div th:if="${success}"
+             style="background:#ecfdf5;border:1px solid #6ee7b7;color:#065f46;padding:.75rem 1rem;border-radius:8px;margin-bottom:1.25rem"
+             th:text="${success}">Success
+        </div>
+
+        <div th:if="${errorMessage}"
+             style="background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;padding:.75rem 1rem;border-radius:8px;margin-bottom:1.25rem"
+             th:text="${errorMessage}">Error
+        </div>
+
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th class="text-right">Opening Balance</th>
+                        <th class="text-right">Created</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="account : ${accounts}">
+                            <td th:text="${account.name}">Checking</td>
+                            <td>
+                                <span class="badge badge-neutral"
+                                      th:text="${account.type}">CHECKING
+                                </span>
+                            </td>
+                            <td class="text-right mono"
+                                th:text="'$' +
+                                ${#numbers.formatDecimal(account.openingBalance, 1, 'COMMA', 2, 'POINT')}">
+                                $0.00
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a class="btn btn-ghost btn-sm"
+                                       th:href="@{/accounts/{id}/edit(id=${account.id})}">Edit</a>
+                                    <form th:action="@{/acccounts/{id}/delete(id=${account.id})}"
+                                          method="post"
+                                    onsubmit="return confirm('Are you sure you want to delete this account?')">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(accounts)}">
+                            <td colspan="5" class="muted" style="padding:1.5rem;text-align:center">
+                                No accounts yet.
+                                <a th:href="@{/accounts/new}">Create one →</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

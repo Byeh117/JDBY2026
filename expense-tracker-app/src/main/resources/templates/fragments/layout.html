@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Expenses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<header class="site-header" th:fragment="header(activeNav)">
+    <div class="container">
+        <a class="brand" th:href="@{/dashboard}">Expenses</a>
+        <nav class="site-nav">
+            <a th:href="@{/dashboard}"
+               th:classappend="${activeNav == '/dashboard' ? 'active' : ''}">Dashboard</a>
+            <a th:href="@{/transactions}"
+               th:classappend="${activeNav == '/transactions' ? 'active' : ''}">Transactions</a>
+            <a th:href="@{/accounts}"
+               th:classappend="${activeNav == '/accounts' ? 'active' : ''}">Accounts</a>
+            <a th:href="@{/categories}"
+               th:classappend="${activeNav == '/categories' ? 'active' : ''}">Categories</a>
+        </nav>
+        <a class="btn btn-primary btn-sm" th:href="@{/transactions/new}">+ New Transaction</a>
+    </div>
+</header>
+
+<footer th:fragment="footer">
+    <div class="container muted">
+        <small>Spring Boot + Thymeleaf - Expenses Tracker</small>
+    </div>
+</footer>
+
+</body>
+</html>
