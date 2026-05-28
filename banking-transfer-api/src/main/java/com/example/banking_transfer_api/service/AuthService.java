@@ -1,12 +1,12 @@
-package com.example.todo_api.service;
+package com.example.banking_transfer_api.service;
 
-import com.example.todo_api.dto.auth.AuthResponse;
-import com.example.todo_api.dto.auth.LoginRequest;
-import com.example.todo_api.dto.auth.RegisterRequest;
-import com.example.todo_api.entity.Role;
-import com.example.todo_api.entity.User;
-import com.example.todo_api.repository.UserRepository;
-import com.example.todo_api.security.JwtService;
+import com.example.banking_transfer_api.dto.auth.AuthResponse;
+import com.example.banking_transfer_api.dto.auth.LoginRequest;
+import com.example.banking_transfer_api.dto.auth.RegisterRequest;
+import com.example.banking_transfer_api.entity.Role;
+import com.example.banking_transfer_api.entity.User;
+import com.example.banking_transfer_api.repository.UserRepository;
+import com.example.banking_transfer_api.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +29,7 @@ public class AuthService {
             throw new IllegalArgumentException("Username is already taken");
         }
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("Email already registered");
+            throw new IllegalArgumentException("Emil already registered");
         }
 
         User user = User.builder()

@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/todo-app/pom.xml" />
         <option value="$PROJECT_DIR$/expense-tracker-app/pom.xml" />
         <option value="$PROJECT_DIR$/todo-api/pom.xml" />
+        <option value="$PROJECT_DIR$/banking-transfer-api/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

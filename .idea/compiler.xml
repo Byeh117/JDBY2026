@@ -9,14 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="records-shop" />
       </profile>
-      <profile name="Annotation profile for todo-api" enabled="true">
+      <profile name="Annotation profile for banking-transfer-api" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
-        <module name="todo-api" />
+        <module name="banking-transfer-api" />
       </profile>
       <profile name="Annotation profile for todo-app" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -28,6 +28,7 @@
         </processorPath>
         <module name="todo-app" />
         <module name="jb-bank-app" />
+        <module name="todo-api" />
         <module name="expense-tracker-app" />
       </profile>
     </annotationProcessing>
@@ -37,6 +38,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="banking-transfer-api" options="-parameters" />
       <module name="expense-tracker-app" options="-parameters" />
       <module name="jb-bank-app" options="-parameters" />
       <module name="jd-bank-app" options="-parameters" />
